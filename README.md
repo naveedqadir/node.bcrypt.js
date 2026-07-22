@@ -81,7 +81,7 @@ _Pre-built binaries for various NodeJS versions are made available on a best-eff
 
 Only the current stable and supported LTS releases (Node 18+) are actively tested against.
 
-_There may be an interval between the release of the module and the availabilty of the compiled modules._
+_There may be an interval between the release of the module and the availability of the compiled modules._
 
 Currently, we have pre-built binaries that support the following platforms:
 
@@ -302,7 +302,7 @@ A great thread on this, in much more detail can be found @ codahale/bcrypt-ruby#
 
 If you're unfamiliar with timing attacks and want to learn more you can find a great writeup @ [A Lesson In Timing Attacks][timingatk]
 
-However, timing attacks are real. And the comparison function is _not_ time safe. That means that it may exit the function early in the comparison process. Timing attacks happen because of the above. We don't need to be careful that an attacker will learn anything, and our comparison function provides a comparison of hashes. It is a utility to the overall purpose of the library. If you end up using it for something else, we cannot guarantee the security of the comparator. Keep that in mind as you use the library.
+However, the comparison function is _not_ time safe (constant-time), as it may exit early when a mismatch is found. Normally, this could enable a timing attack, but because it compares full bcrypt hash digests rather than raw passwords, and hashes are preimage-resistant, an attacker cannot gain any information about the stored hash. If you use the comparison function outside the bcrypt library, we cannot guarantee its security. Keep this in mind when using the library.
 
 ## Hash Info
 
@@ -376,7 +376,7 @@ Unless stated elsewhere, file headers or otherwise, the license as stated in the
 [gh13]: https://github.com/ncb000gt/node.bcrypt.js/issues/13
 [jtr]: http://www.openwall.com/lists/oss-security/2011/06/20/2
 [depsinstall]: https://github.com/kelektiv/node.bcrypt.js/wiki/Installation-Instructions
-[timingatk]: https://codahale.com/a-lesson-in-timing-attacks/
+[timingatk]: https://web.archive.org/web/20250815071532/https://codahale.com/a-lesson-in-timing-attacks/
 [wrap-around-bug]: https://github.com/kelektiv/node.bcrypt.js/wiki/Security-Issues-and-Concerns#bcrypt-wrap-around-bug-medium-severity
 [improper-nuls]: https://github.com/kelektiv/node.bcrypt.js/wiki/Security-Issues-and-Concerns#improper-nul-handling-medium-severity
 
